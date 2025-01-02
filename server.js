@@ -17,6 +17,9 @@ app.post("/signup", (req, res)=>{
     const emailRegex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.+[a-zA-Z0-9-.]+$/
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
     const dateRegex = /^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$/
+    const today = new Date();
+    console.log(2025-parseInt(dob.substring(6, 10))>=18);
+    
 
     if(!usernameRegex.test(username)){
         return res.status(400).send("Invalid username format.");
@@ -26,7 +29,7 @@ app.post("/signup", (req, res)=>{
         return res.status(400).send("Password should contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
     }else if(!dateRegex.test(dob)){
         return res.status(400).send("Invalid date format."); 
-    }else if(parseInt(dob.substring(6, 10))>=18){
+    }else if((2025-parseInt(dob.substring(6, 10)))<18){
         // DD/MM/YYYY
         return res.status(400).send("User must be 18 or older."); 
     }
